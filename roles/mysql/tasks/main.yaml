@@ -18,13 +18,22 @@
         state: started
         enabled: yes
 
+    # - name: connect to mysql server
+    #   community.mysql.mysql_info:
+    #     login_user: root 
+    #     login_password: "{{  mysql_root_password }}"      
+    #     login_host: mysql.shrihan.fun
+    #   register: mysql_info
+    #   ignore_errors: true
+
     - name: connect to mysql server
       community.mysql.mysql_info:
-        login_user: root 
-        login_password: "{{  mysql_root_password }}"      
-        login_host: mysql.shrihan.fun
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        login_unix_socket: /var/lib/mysql/mysql.sock
       register: mysql_info
       ignore_errors: true
+
 
     - name: print the info
       ansible.builtin.debug:
